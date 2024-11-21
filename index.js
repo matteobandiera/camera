@@ -5,18 +5,25 @@
   const VIDEO_HEIGHT = 480;
 
   /**
-   * @type {(HTMLCanvasElement | null)} canvas
+   * @type {(HTMLCanvasElement | null)}
    */
   let canvas = null;
   /**
-   * @type {(HTMLCanvasElement | null)} canvas
+   * @type {(HTMLVideoElement | null)}
    */
   let video = null;
   /**
-   * @type {(HTMLButtonElement | null)} buttonSnap
+   * @type {(HTMLButtonElement | null)}
    */
   let buttonSnap = null;
+  /**
+   * @type {(HTMLSelectElement | null)}
+   */
   let camerasSelect = null;
+  /**
+   * @type {(HTMLImageElement | null)}
+   */
+  let picture = null;
   let cameras = [];
 
   function init() {
@@ -30,7 +37,7 @@
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
 
-    video = document.getElementById("video");
+    video = /** @type {HTMLVideoElement} */ (document.getElementById("video"));
     if (!video) {
       console.error("Video element not found");
       return;
@@ -38,8 +45,16 @@
     video.width = VIDEO_WIDTH;
     video.height = VIDEO_HEIGHT;
 
-    camerasSelect = document.getElementById("cameras");
-    buttonSnap = document.getElementById("snap");
+    camerasSelect = /** @type {HTMLSelectElement} */ (
+      document.getElementById("cameras")
+    );
+    buttonSnap = /** @type {HTMLButtonElement} */ (
+      document.getElementById("snap")
+    );
+
+    picture = /** @type {HTMLImageElement} */ (
+      document.getElementById("photo")
+    );
 
     navigator.mediaDevices
       .getUserMedia({
@@ -63,7 +78,6 @@
 
     camerasSelect.addEventListener("change", (event) => {
       const deviceId = event.target.value;
-      console.log(deviceId);
       navigator.mediaDevices
         .getUserMedia({
           video: {
@@ -86,6 +100,8 @@
         return;
       }
       context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      const data = canvas.toDataURL("image/png");
+      picture.setAttribute("src", data);
     });
   }
 
