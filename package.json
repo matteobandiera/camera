@@ -1,0 +1,23 @@
+{
+  "name": "camera",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.3.0+sha256.e1f9e8d1a16607a46dd3c158b5f7a7dc7945501d1c6222d454d63d033d1d918f",
+  "dependencies": {
+    "vite": "^5.4.11"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "9.1.0",
+    "prettier": "3.3.3"
+  }
+}
