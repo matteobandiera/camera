@@ -28,32 +28,32 @@
 
   function init() {
     canvas = /** @type {HTMLCanvasElement} */ (
-      document.getElementById("canvas")
+      document.getElementById('canvas')
     );
     if (!canvas) {
-      console.error("Canvas element not found");
+      console.error('Canvas element not found');
       return;
     }
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
 
-    video = /** @type {HTMLVideoElement} */ (document.getElementById("video"));
+    video = /** @type {HTMLVideoElement} */ (document.getElementById('video'));
     if (!video) {
-      console.error("Video element not found");
+      console.error('Video element not found');
       return;
     }
     video.width = VIDEO_WIDTH;
     video.height = VIDEO_HEIGHT;
 
     camerasSelect = /** @type {HTMLSelectElement} */ (
-      document.getElementById("cameras")
+      document.getElementById('cameras')
     );
     buttonSnap = /** @type {HTMLButtonElement} */ (
-      document.getElementById("snap")
+      document.getElementById('snap')
     );
 
     picture = /** @type {HTMLImageElement} */ (
-      document.getElementById("photo")
+      document.getElementById('photo')
     );
 
     navigator.mediaDevices
@@ -67,16 +67,16 @@
       });
 
     navigator.mediaDevices.enumerateDevices().then((devices) => {
-      cameras = devices.filter((device) => device.kind === "videoinput");
+      cameras = devices.filter((device) => device.kind === 'videoinput');
       cameras.forEach((camera, index) => {
-        const option = document.createElement("option");
+        const option = document.createElement('option');
         option.value = camera.deviceId;
         option.text = camera.label || `Camera ${index + 1}`;
         camerasSelect.appendChild(option);
       });
     });
 
-    camerasSelect.addEventListener("change", (event) => {
+    camerasSelect.addEventListener('change', (event) => {
       const deviceId = event.target.value;
       navigator.mediaDevices
         .getUserMedia({
@@ -93,17 +93,17 @@
         });
     });
 
-    buttonSnap.addEventListener("click", () => {
-      const context = canvas.getContext("2d");
+    buttonSnap.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
       if (!context) {
-        console.error("Canvas context not found");
+        console.error('Canvas context not found');
         return;
       }
       context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      const data = canvas.toDataURL("image/png");
-      picture.setAttribute("src", data);
+      const data = canvas.toDataURL('image/png');
+      picture.setAttribute('src', data);
     });
   }
 
-  window.addEventListener("load", init, false);
+  window.addEventListener('load', init, false);
 })();
